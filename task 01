@@ -1,0 +1,40 @@
+def chatbot_response(user_input):
+    user_input = user_input.lower()
+
+    if "hello" in user_input or "hi" in user_input:
+        return "Hello! How can I help you today?"
+    
+    elif "who are you" in user_input:
+        return "I am a simple chatbot created using Python."
+
+    elif "who created you" in user_input:
+        return "Aayush gupta."
+
+    elif "tell me a coding joke" in user_input:
+        return """Why do programmers prefer dark mode?
+               Because light attracts bugs!."""
+
+    elif "where are you from" in user_input:
+        return "I live inside your computer, in the world of Python code.."
+   
+    elif "weather" in user_input:
+        return "I can’t check live weather yet, but I hope it’s nice where you are!"
+    
+    elif "your creator" in user_input or "who made you" in user_input:
+        return "I was created by Aayush Gupta while learning AI & ML concepts."
+  
+    elif "bye" in user_input or "goodbye" in user_input:
+        return "Goodbye! Have a great day. 😊"
+    
+    else:
+        return "I'm not sure about that. Could you ask something else?"
+
+
+print("🤖 Simple Chatbot: Type 'bye' to exit.")
+while True:
+    user_message = input("You: ")
+    if "bye" in user_message.lower():
+        print("Bot:", chatbot_response(user_message))
+        break
+    else:
+        print("Bot:", chatbot_response(user_message))
