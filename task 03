@@ -1,0 +1,31 @@
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+data = {
+    'title': ['Inception', 'Interstellar', 'The Dark Knight', 'Avengers', 'Iron Man', 'The Martian', 'Titanic'],
+    'genre': ['Sci-Fi Thriller', 'Sci-Fi Drama', 'Action Crime', 'Action Sci-Fi', 'Action Sci-Fi', 'Sci-Fi Adventure', 'Romance Drama']
+}
+
+df = pd.DataFrame(data)
+
+cv = CountVectorizer()
+count_matrix = cv.fit_transform(df['genre'])
+
+similarity = cosine_similarity(count_matrix)
+
+def recommend(movie):
+    if movie not in df['title'].values:
+        print("Movie not found in the database.")
+        return
+    idx = df[df['title'] == movie].index[0]
+    sim_scores = list(enumerate(similarity[idx]))
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    sim_scores = sim_scores[1:4]
+    print(f"\nBecause you liked '{movie}', you may also like:")
+    for i in sim_scores:
+        print("-", df.iloc[i[0]]['title'])
+
+print("Available movies:", list(df['title']))
+movie_name = input("\nEnter a movie you like: ")
+recommend(movie_name)
